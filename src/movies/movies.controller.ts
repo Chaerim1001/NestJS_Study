@@ -8,6 +8,7 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
+import { CreateMovieDTO } from './dto/create-movie.dto';
 import { Movie } from './entities/movie.entity';
 import { MoviesService } from './movies.service';
 
@@ -26,22 +27,25 @@ export class MoviesController {
   }
 
   @Get(':id')
-  getOne(@Param('id') movieId: string): Movie {
+  getOne(@Param('id') movieId: number): Movie {
+    // url로 받은 값은 모두 string이라 우리가 다시 number로 바꿔서 사용해야하는데 transform을 true로 설정해주면 자동으로 타입을 변환해준다.
+    // +string 하면 number로 형변환
+    console.log(typeof movieId);
     return this.movieService.getOne(movieId);
   }
 
   @Post()
-  create(@Body() movieData) {
+  create(@Body() movieData: CreateMovieDTO) {
     return this.movieService.create(movieData);
   }
 
   @Delete(':id')
-  remove(@Param('id') movieId: string) {
+  remove(@Param('id') movieId: number) {
     return this.movieService.deleteOne(movieId);
   }
 
   @Patch(':id') // Put은 모두 업데이트 Patch는 일부 리소스만 업데이트
-  patch(@Param('id') movieId: string, @Body() updateData) {
+  patch(@Param('id') movieId: number, @Body() updateData) {
     return this.movieService.update(movieId, updateData);
   }
 }
