@@ -77,4 +77,19 @@ describe('MoviesService', () => {
       }
     });
   });
+
+  describe('create()', () => {
+    it('should create a movie', () => {
+      // movie 갯수가 늘어났는지 or 마지막으로 생성된 movie의 title이 create한 title과 같은지 등...
+      const beforeCreate = service.getAll().length;
+      service.create({
+        title: 'TEST MOVIE',
+        year: 2022,
+        genres: ['TEST'],
+      });
+      const afterCreate = service.getAll().length;
+      console.log(beforeCreate, afterCreate);
+      expect(afterCreate).toBeGreaterThan(beforeCreate);
+    });
+  });
 });
