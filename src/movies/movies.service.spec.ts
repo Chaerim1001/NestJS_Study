@@ -32,4 +32,27 @@ describe('MoviesService', () => {
       expect(result).toBeInstanceOf(Array);
     });
   });
+
+  describe('getOne()', () => {
+    it('should return a movie', () => {
+      service.create({
+        title: 'TEST MOVIE',
+        year: 2022,
+        genres: ['TEST'],
+      });
+      const movie = service.getOne(1);
+      expect(movie).toBeDefined();
+      expect(movie.id).toEqual(1);
+    });
+
+    // 에러가 잘 발생하는지 테스트
+    it('should throw 404 error', () => {
+      try {
+        service.getOne(999);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+        expect(e.message).toEqual('Movie with ID 999 not found.');
+      }
+    });
+  });
 });
