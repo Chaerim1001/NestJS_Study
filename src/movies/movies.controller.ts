@@ -19,6 +19,9 @@ export class MoviesController {
 
   @Get()
   getAll(): Movie[] {
+    // @Req() req, @Res() res
+    // NestJS는 express 위에서 돌아가기 때문에 req,res 객체에 접근 가능 -> 그러나 express 객체를 직접적으로 사용하는 것은 좋은 방법은 아님
+    // Fastify처럼 express랑은 다른 방법을 쓰고 싶을 수 있으니까
     return this.movieService.getAll();
   }
 
