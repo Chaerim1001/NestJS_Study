@@ -37,7 +37,7 @@ describe('AppController (e2e)', () => {
       return request(app.getHttpServer()).get('/movies').expect(200).expect([]);
     });
 
-    it('POST', () => {
+    it('POST 201', () => {
       return request(app.getHttpServer()) // 127.0.0.1:3000 이런식으로 쓰는걸 막기 위해
         .post('/movies')
         .send({
@@ -71,6 +71,9 @@ describe('AppController (e2e)', () => {
         .expect(200);
     });
 
-    it.todo('DELETE');
+    //it.todo('DELETE');
+    it('DELETE 200', () => {
+      return request(app.getHttpServer()).delete('/movies/1').expect(200);
+    });
   });
 });
